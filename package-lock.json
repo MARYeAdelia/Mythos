@@ -1,0 +1,4 @@
+# Copie para .env.local se quiser rodar localmente com `vercel dev`.
+# Na Vercel, defina esta variável em Settings > Environment Variables.
+# Pegue a chave em https://openrouter.ai/keys
+OPENROUTER_API_KEY=sk-or-...

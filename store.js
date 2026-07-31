@@ -1,0 +1,483 @@
+:root {
+  /* Tinta — a coluna da bible */
+  --ink: #16131c;
+  --ink-2: #1e1a26;
+  --ink-3: #262030;
+  --ink-line: rgba(255, 255, 255, 0.08);
+  --ink-text: #e8e2ee;
+  --ink-muted: #9a93a6;
+
+  /* Papel — o manuscrito */
+  --paper: #f4efe4;
+  --paper-2: #fbf8f1;
+  --paper-line: #e3dccc;
+  --paper-ink: #24211b;
+  --paper-muted: #7d7462;
+
+  /* Granada — o acento */
+  --garnet: #9e2b3f;
+  --garnet-soft: #b8455a;
+  --garnet-ghost: rgba(158, 43, 63, 0.1);
+
+  --serif: 'Spectral', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --rail: 400px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--paper-ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Estrutura ---------- */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+  height: 56px;
+  flex: 0 0 auto;
+  background: var(--ink);
+  border-bottom: 1px solid var(--ink-line);
+  color: var(--ink-text);
+}
+
+.wordmark {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.wordmark .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--garnet-soft);
+  display: inline-block;
+}
+.wordmark small {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.topbar .spacer {
+  flex: 1;
+}
+
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: var(--rail) 1fr;
+  min-height: 0;
+}
+
+/* ---------- Coluna da bible (tinta) ---------- */
+.bible {
+  background: var(--ink);
+  color: var(--ink-text);
+  border-right: 1px solid var(--ink-line);
+  overflow-y: auto;
+  padding: 22px 22px 60px;
+}
+
+.bible::-webkit-scrollbar {
+  width: 10px;
+}
+.bible::-webkit-scrollbar-thumb {
+  background: var(--ink-3);
+  border-radius: 10px;
+  border: 3px solid var(--ink);
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 10px;
+}
+
+.section {
+  padding: 18px 0;
+  border-top: 1px solid var(--ink-line);
+}
+.section:first-of-type {
+  border-top: none;
+  padding-top: 4px;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+.field:last-child {
+  margin-bottom: 0;
+}
+.field > label {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+/* inputs sobre tinta */
+.bible input,
+.bible textarea,
+.bible select {
+  width: 100%;
+  background: var(--ink-2);
+  border: 1px solid var(--ink-line);
+  color: var(--ink-text);
+  border-radius: 8px;
+  padding: 9px 11px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.bible input:focus,
+.bible textarea:focus,
+.bible select:focus {
+  outline: none;
+  border-color: var(--garnet-soft);
+  box-shadow: 0 0 0 3px var(--garnet-ghost);
+}
+.bible textarea {
+  min-height: 70px;
+}
+
+/* personagens */
+.char {
+  background: var(--ink-2);
+  border: 1px solid var(--ink-line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+.char .row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.char textarea {
+  min-height: 52px;
+}
+.char-del {
+  background: none;
+  border: none;
+  color: var(--ink-muted);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 0 0;
+}
+.char-del:hover {
+  color: var(--garnet-soft);
+}
+
+/* chips (palavras banidas / nomes proibidos) */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--garnet-ghost);
+  border: 1px solid rgba(184, 69, 90, 0.35);
+  color: #e7b9c1;
+  border-radius: 999px;
+  padding: 3px 6px 3px 11px;
+  font-size: 12.5px;
+}
+.chip button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 2px;
+}
+.chip button:hover {
+  opacity: 1;
+}
+
+.ghost-btn {
+  background: none;
+  border: 1px dashed var(--ink-line);
+  color: var(--ink-muted);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  cursor: pointer;
+  width: 100%;
+}
+.ghost-btn:hover {
+  border-color: var(--garnet-soft);
+  color: var(--ink-text);
+}
+
+/* ---------- Coluna do manuscrito (papel) ---------- */
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--paper);
+}
+
+.desk {
+  flex: 0 0 auto;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--paper-line);
+  padding: 16px 28px;
+}
+
+.chapter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.tab {
+  border: 1px solid var(--paper-line);
+  background: transparent;
+  color: var(--paper-muted);
+  border-radius: 999px;
+  padding: 4px 13px;
+  font-size: 12.5px;
+  font-family: var(--sans);
+  cursor: pointer;
+}
+.tab.active {
+  background: var(--paper-ink);
+  color: var(--paper-2);
+  border-color: var(--paper-ink);
+}
+.tab.add {
+  border-style: dashed;
+}
+
+.direction {
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  gap: 10px 14px;
+  align-items: end;
+}
+.direction .meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.direction .meta label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--paper-muted);
+}
+.direction input,
+.direction select,
+.direction textarea {
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  color: var(--paper-ink);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+}
+.direction input:focus,
+.direction select:focus,
+.direction textarea:focus {
+  outline: none;
+  border-color: var(--garnet);
+  box-shadow: 0 0 0 3px var(--garnet-ghost);
+}
+.direction .num {
+  width: 62px;
+}
+.direction .words {
+  width: 92px;
+}
+.direction .pov {
+  min-width: 150px;
+}
+.direction .prompt {
+  grid-column: 1 / -1;
+}
+.direction .prompt textarea {
+  width: 100%;
+  min-height: 56px;
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+.btn {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 9px;
+  padding: 10px 18px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn.primary {
+  background: var(--garnet);
+  color: #fff;
+}
+.btn.primary:hover {
+  background: var(--garnet-soft);
+}
+.btn.primary:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.btn.subtle {
+  background: transparent;
+  border-color: var(--paper-line);
+  color: var(--paper-ink);
+}
+.btn.subtle:hover {
+  border-color: var(--paper-muted);
+}
+.status {
+  font-size: 13px;
+  color: var(--paper-muted);
+}
+.status.error {
+  color: var(--garnet);
+}
+
+/* a página */
+.page-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 34px 28px 80px;
+  display: flex;
+  justify-content: center;
+}
+.page {
+  width: 100%;
+  max-width: 720px;
+}
+.page textarea {
+  width: 100%;
+  min-height: 60vh;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-family: var(--serif);
+  font-size: 18.5px;
+  line-height: 1.72;
+  color: var(--paper-ink);
+}
+.page textarea:focus {
+  outline: none;
+}
+.page textarea::placeholder {
+  color: var(--paper-muted);
+  font-style: italic;
+}
+
+.counter {
+  position: sticky;
+  bottom: 0;
+  text-align: right;
+  font-size: 12px;
+  color: var(--paper-muted);
+  padding-top: 8px;
+}
+
+/* select genérico da topbar */
+.top-select {
+  background: var(--ink-2);
+  border: 1px solid var(--ink-line);
+  color: var(--ink-text);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-family: var(--sans);
+  font-size: 13px;
+}
+.top-select:focus {
+  outline: none;
+  border-color: var(--garnet-soft);
+}
+.top-btn {
+  background: var(--ink-2);
+  border: 1px solid var(--ink-line);
+  color: var(--ink-text);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.top-btn:hover {
+  border-color: var(--garnet-soft);
+}
+.model-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 900px) {
+  .main {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+  .bible {
+    max-height: none;
+  }
+  .direction {
+    grid-template-columns: 1fr 1fr;
+  }
+  .page textarea {
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
