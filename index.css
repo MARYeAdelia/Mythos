@@ -481,3 +481,267 @@ body {
     transition: none !important;
   }
 }
+
+/* ===== Ficha de personagem ===== */
+.char-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.char-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--ink-text);
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+}
+.char-toggle .chev {
+  color: var(--ink-muted);
+  transition: transform 0.15s ease;
+  display: inline-block;
+  font-size: 16px;
+}
+.char-toggle .chev.open {
+  transform: rotate(90deg);
+}
+.char-name {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.char-role {
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+.age-pill {
+  font-size: 11px;
+  color: #e7b9c1;
+  background: var(--garnet-ghost);
+  border: 1px solid rgba(184, 69, 90, 0.35);
+  padding: 2px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.char-body {
+  margin-top: 12px;
+}
+.sheet-eyebrow {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--garnet-soft);
+  margin: 16px 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--ink-line);
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.grid3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.grid2 .field,
+.grid3 .field {
+  margin-bottom: 8px;
+}
+
+/* ===== Datas comemorativas ===== */
+.holiday {
+  background: var(--ink-2);
+  border: 1px solid var(--ink-line);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+.holiday-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.hol-name {
+  flex: 1;
+}
+.hol-num {
+  width: 52px !important;
+  text-align: center;
+}
+.holiday-row2 {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.chip-x {
+  background: none;
+  border: none;
+  color: var(--ink-muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.chip-x:hover {
+  color: var(--garnet-soft);
+}
+.hint {
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin: 8px 0 0;
+  line-height: 1.4;
+}
+
+/* ===== Linha do tempo (workspace) ===== */
+.timeline-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.tl-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  border: 1px solid var(--paper-line);
+  background: transparent;
+  color: var(--paper-muted);
+  border-radius: 8px;
+  padding: 5px 11px;
+  cursor: pointer;
+  font-family: var(--sans);
+}
+.tl-chip .tl-cap {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--paper-ink);
+}
+.tl-chip .tl-date {
+  font-size: 10.5px;
+  color: var(--paper-muted);
+}
+.tl-chip.active {
+  border-color: var(--garnet);
+  background: var(--garnet-ghost);
+}
+.tl-chip.span {
+  border-left: 3px solid var(--garnet-soft);
+}
+.tl-chip.add {
+  border-style: dashed;
+  color: var(--paper-muted);
+  justify-content: center;
+  font-size: 12px;
+}
+.tl-span {
+  font-size: 11px;
+  color: var(--paper-muted);
+  margin-left: 4px;
+}
+
+/* ===== Cartão de tempo ===== */
+.time-card {
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 14px;
+}
+.grid-time {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.grid-time .meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.grid-time label {
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--paper-muted);
+}
+.grid-time input,
+.grid-time select {
+  background: var(--paper-2);
+  border: 1px solid var(--paper-line);
+  color: var(--paper-ink);
+  border-radius: 7px;
+  padding: 7px 8px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  min-width: 0;
+}
+.grid-time input:focus,
+.grid-time select:focus {
+  outline: none;
+  border-color: var(--garnet);
+}
+.derived {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 11px;
+}
+.d-pill {
+  font-size: 12px;
+  background: var(--paper-2);
+  border: 1px solid var(--paper-line);
+  color: var(--paper-ink);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.d-pill.accent {
+  background: var(--garnet-ghost);
+  border-color: rgba(158, 43, 63, 0.3);
+  color: var(--garnet);
+}
+.d-pill.hol {
+  background: rgba(158, 43, 63, 0.12);
+  border-color: rgba(158, 43, 63, 0.35);
+  color: var(--garnet);
+}
+.d-pill.muted {
+  color: var(--paper-muted);
+}
+.clima-input {
+  flex: 1;
+  min-width: 140px;
+  background: var(--paper-2);
+  border: 1px dashed var(--paper-line);
+  color: var(--paper-ink);
+  border-radius: 7px;
+  padding: 5px 9px;
+  font-family: var(--sans);
+  font-size: 12px;
+}
+.clima-input:focus {
+  outline: none;
+  border-color: var(--garnet);
+}
+
+@media (max-width: 900px) {
+  .grid-time {
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid3 {
+    grid-template-columns: 1fr 1fr;
+  }
+}

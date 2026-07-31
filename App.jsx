@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import BiblePanel from './BiblePanel.jsx'
 import Workspace from './Workspace.jsx'
-import { loadState, saveState, newProject } from './store.js'
-import { buildSystemPrompt, buildUserPrompt, tailOf } from './prompt.js'
+import { loadState, saveState, newProject, normalizeProject } from './store.js'
+import { buildSystemPrompt, buildUserPrompt } from './prompt.js'
 
 const MODEL_SUGGESTIONS = [
   'cognitivecomputations/dolphin-mistral-24b-venice-edition',
@@ -15,7 +15,9 @@ const MODEL_SUGGESTIONS = [
 export default function App() {
   const [state, setState] = useState(() => {
     const saved = loadState()
-    if (saved && saved.projects?.length) return saved
+    if (saved && saved.projects?.length) {
+      return { ...saved, projects: saved.projects.map(normalizeProject) }
+    }
     const p = newProject('Projeto sem título')
     return { projects: [p], currentId: p.id }
   })
@@ -68,13 +70,7 @@ export default function App() {
       const prev = idx > 0 ? chaptersSorted[idx - 1] : null
 
       const system = buildSystemPrompt(project)
-      const user = buildUserPrompt({
-        chapterNumber: chapter.number,
-        pov: chapter.pov,
-        targetWords: chapter.targetWords,
-        direction: chapter.direction,
-        prevTail: prev ? tailOf(prev.text) : '',
-      })
+      const user = buildUserPrompt({ project, chapter, prevChapter: prev })
 
       const res = await fetch('/api/generate', {
         method: 'POST',
@@ -171,7 +167,14 @@ export default function App() {
       </header>
 
       <div className="main">
-        <BiblePanel project={project} update={update} />
+        <BiblePanel
+          project={project}
+          update={update}
+          refDate={
+            (project.chapters.find((c) => c.id === activeChapterId) || project.chapters[0] || {})
+              .startDate
+          }
+        />
         <Workspace
           project={project}
           update={update}
