@@ -929,6 +929,7 @@ function chapterDateLabel(ch) {
 function Workspace({ project, update, activeId, setActiveId, onGenerate, generating, status, onGenerateSummary, summarizing }) {
   const p = project
   const textRef = useRef(null)
+  const [railOpen, setRailOpen] = useState(true)
   const chapter = p.chapters.find((c) => c.id === activeId) || p.chapters[0] || null
   const povNames = p.characters.map((c) => c.name).filter((n) => n && n.trim())
 
@@ -988,8 +989,8 @@ function Workspace({ project, update, activeId, setActiveId, onGenerate, generat
   }
 
   return (
-    <section className="workspace">
-      <div className="desk">
+    <section className={'workspace two-col' + (railOpen ? '' : ' collapsed')}>
+      <div className="ctrl-rail">
         <div className="timeline-strip">
           {sorted.map((c) => (
             <button
@@ -1108,16 +1109,22 @@ function Workspace({ project, update, activeId, setActiveId, onGenerate, generat
         </div>
       </div>
 
-      <div className="page-wrap">
-        <div className="page">
-          <textarea
-            ref={textRef}
-            value={chapter.text}
-            onChange={(e) => setChapter({ text: e.target.value })}
-            placeholder="A página está em branco. Preencha a direção e gere um rascunho — ou comece você mesma."
-          />
-          <div className="counter">{countWords(chapter.text)} palavras</div>
+      <div className="manuscript-col">
+        <div className="manuscript-bar">
+          <button className="collapse-btn" onClick={() => setRailOpen(!railOpen)} title={railOpen ? 'Recolher controles' : 'Mostrar controles'}>
+            {railOpen ? '⟨ ocultar controles' : 'mostrar controles ⟩'}
+          </button>
+          <span className="ms-chapter">Cap. {chapter.number}{chapter.pov ? ' · ' + chapter.pov : ''}</span>
+          <span className="spacer" />
+          <span className="ms-count">{countWords(chapter.text)} palavras</span>
         </div>
+        <textarea
+          className="page-area"
+          ref={textRef}
+          value={chapter.text}
+          onChange={(e) => setChapter({ text: e.target.value })}
+          placeholder="A página está em branco. Preencha a direção e gere um rascunho — ou comece você mesma."
+        />
       </div>
     </section>
   )
